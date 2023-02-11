@@ -120,16 +120,16 @@ fun CollectorLevel(
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             Text(
-                modifier = Modifier.padding(top = 77.dp, bottom = 25.dp),
+                modifier = Modifier.padding(top = 80.dp, bottom = 55.dp),
                 text = "${solved.toInt()}/${target}",
                 color = Color.Black,
-                fontSize = 22.sp
+                fontSize = 20.sp
             )
         }
         Text(
             text = "Process: ${(solved/target * 100).toInt()}%",
             color = Color.Black,
-            fontSize = 20.sp, modifier = Modifier.padding(top = 30.dp)
+            fontSize = 18.sp
         )
     }
 }
@@ -141,7 +141,7 @@ fun BoxScope.PointsProgress(
 
     val start = 120f
     val end = 300f
-    val thickness = 13.dp
+    val thickness = 14.dp
 
     Canvas(
         modifier = Modifier

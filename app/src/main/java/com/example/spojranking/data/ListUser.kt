@@ -5,7 +5,7 @@ import com.example.spojranking.R
 
 fun getListOfUser(): List<User> {
     val list: MutableList<User> = mutableListOf()
-    list.add(User(R.drawable._7, "Đỗ Lý Minh Anh","@AnhDLM", 100, 500))
+    list.add(User(R.drawable._7, "Đỗ Lý Minh Anh","@AnhDLM", 540, 500))
     list.add(User(R.drawable._6, "Trần Đức Chính", "@ChinhTD",90, 600))
     list.add(User(R.drawable._5, "Nguyễn Thành Công","@CongNT", 85, 550))
     list.add(User(R.drawable._4, "Phan Văn Duy","@DuyPV", 80, 520))

@@ -4,12 +4,14 @@ package com.example.spojranking.screen.dialog
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -22,10 +24,13 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Dialog
 import com.example.spojranking.data.User
+import com.example.spojranking.data.getListOfUser
 import com.example.spojranking.screen.loadinganimation.ArcProgressbar
 
 
@@ -36,52 +41,71 @@ fun PopUpDialog(user: User, onDismiss: () -> Unit) {
             onDismiss()
         }
     ) {
-        UserProfile(user)
-    }
-}
-
-@Composable
-fun UserProfile(user: User) {
-    var score by remember {
-        mutableStateOf(0)
-    }
-    Column(
-        modifier = Modifier
-            .height(450.dp)
-            .fillMaxWidth()
-            .padding(7.dp)
-            .clip(RoundedCornerShape(27.dp))
-            .background(Color.White)
-    ) {
+        var score by remember {
+            mutableStateOf(0)
+        }
         Column(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(top = 20.dp, bottom = 15.dp),
-            horizontalAlignment = Alignment.CenterHorizontally
+                .clip(RoundedCornerShape(25.dp))
+                .background(Color.White)
         ) {
-            Image(
-                painter = painterResource(id = user.image),
-                contentDescription = null,
-                contentScale = ContentScale.Crop,
-                modifier = Modifier
-                    .size(90.dp)
-                    .clip(CircleShape)
+            Row(
+                verticalAlignment = Alignment.CenterVertically,
+                modifier = Modifier.padding(top = 15.dp, start = 15.dp)
+            ) {
+                Image(
+                    painter = painterResource(id = user.image),
+                    contentDescription = null,
+                    contentScale = ContentScale.Crop,
+                    modifier = Modifier
+                        .size(65.dp)
+                        .clip(CircleShape)
 
+                )
+                Column {
+                    Text(
+                        text = user.name,
+                        fontSize = 20.sp,
+                        fontWeight = FontWeight.Bold,
+                        modifier = Modifier.padding(start = 10.dp, end = 15.dp)
+                    )
+                    Text(
+                        text = user.userName,
+                        fontSize = 16.sp,
+                        modifier = Modifier.padding(start = 10.dp, end = 15.dp)
+                    )
+                }
+            }
+            ArcProgressbar(
+                solved = score.toFloat(),
+                target = user.target,
+                modifier = Modifier.padding(bottom = 20.dp)
             )
+            Column(
+                horizontalAlignment = Alignment.CenterHorizontally,
+                modifier = Modifier.fillMaxWidth()
+            ) {
+                Button(
+                    onClick = {
+                        onDismiss()
+                    },
+                    modifier = Modifier.padding(bottom = 20.dp), colors = ButtonDefaults.buttonColors(
+                        containerColor = Color(0xFF1E88E5),
+                        contentColor = Color.White
+                    )
+                ) {
+                    Text(text = "Close")
+                }
+            }
         }
-        Text(
-            text = user.name,
-            fontSize = 20.sp,
-            modifier = Modifier.padding(start = 35.dp)
-        )
-        Text(
-            text = user.userName,
-            fontSize = 18.sp,
-            modifier = Modifier.padding(start = 35.dp, top = 8.dp, bottom = 5.dp)
-        )
-        ArcProgressbar(
-            solved = score.toFloat(), target = user.target,
-        )
+        score = user.solved
     }
-    score = user.solved
+}
+
+
+@Preview(showBackground = true, showSystemUi = true)
+@Composable
+fun DefaultPreview() {
+    PopUpDialog(user = getListOfUser()[0], onDismiss = {})
 }

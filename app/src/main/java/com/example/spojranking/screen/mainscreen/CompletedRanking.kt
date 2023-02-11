@@ -5,7 +5,6 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
@@ -21,10 +20,9 @@ import com.example.spojranking.data.getListOfUser
 fun CompletedRanking(onClick: (User) -> Unit) {
     val list: List<User> = getListOfUser()
     Column {
-        Spacer(modifier = Modifier.height(5.dp))
         Divider(
             modifier = Modifier
-                .padding(start = 138.dp, end = 138.dp),
+                .padding(start = 138.dp, end = 138.dp, bottom = 5.dp, top = 5.dp),
             thickness = 2.dp,
             color = Color.Black
         )

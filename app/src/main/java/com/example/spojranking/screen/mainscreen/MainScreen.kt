@@ -11,12 +11,14 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Button
 import androidx.compose.material.ButtonDefaults
+import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.ModalBottomSheetLayout
 import androidx.compose.material.ModalBottomSheetValue
 import androidx.compose.material.rememberModalBottomSheetState
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -27,29 +29,36 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.spojranking.R
 import com.example.spojranking.data.User
+import com.example.spojranking.data.ViewModel
 import com.example.spojranking.screen.dialog.PopUpDialog
+import com.example.spojranking.ui.theme.SPOJRankingTheme
 import kotlinx.coroutines.launch
 
 
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
 fun MainScreen() {
+
     var user: User by remember { mutableStateOf(User(0, "", "", 0, 0)) }
     val sheetState =
         rememberModalBottomSheetState(initialValue = ModalBottomSheetValue.Hidden)
     val coroutineScope = rememberCoroutineScope()
     var showPopUp by remember { mutableStateOf(false) }
     val sheetShape = RoundedCornerShape(20.dp, 20.dp, 0.dp, 0.dp)
+    val viewModel : ViewModel = viewModel()
+    val users = viewModel.uiState.collectAsState()
     Box {
         ModalBottomSheetLayout(
             sheetShape = sheetShape,
             sheetState = sheetState,
             sheetContent = {
-                CompletedRanking {
+                CompletedRanking(users.value) {
                     user = it
                     showPopUp = true
                 }
@@ -61,6 +70,7 @@ fun MainScreen() {
                     .background(color = colorResource(id = R.color.background))
                     .fillMaxSize(), horizontalAlignment = Alignment.CenterHorizontally
             ) {
+                //CircularProgressIndicator(color = Color.White)
                 Column(
                     horizontalAlignment = Alignment.CenterHorizontally,
                     modifier = Modifier
@@ -72,7 +82,7 @@ fun MainScreen() {
                         text = "SPOJ Ranking",
                         fontSize = 35.sp, fontWeight = FontWeight.Bold, color = Color.White
                     )
-                    Top()
+                    Top(users.value)
                 }
                 Button(
                     onClick = {
@@ -96,4 +106,3 @@ fun MainScreen() {
         }
     }
 }
-

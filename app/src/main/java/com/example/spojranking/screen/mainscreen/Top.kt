@@ -13,17 +13,17 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.unit.dp
 import com.example.spojranking.R
+import com.example.spojranking.data.User
 import com.example.spojranking.data.getListOfUser
 
 @Composable
-fun Top() {
+fun Top(list :List<User>){
     Box(modifier = Modifier.fillMaxSize()) {
         Row(
             modifier = Modifier
                 .fillMaxSize()
                 .padding(start = 10.dp, end = 10.dp)
         ) {
-            val list = getListOfUser()
             Column(
                 horizontalAlignment = Alignment.CenterHorizontally,
                 modifier = Modifier

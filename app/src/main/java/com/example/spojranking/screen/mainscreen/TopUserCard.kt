@@ -29,7 +29,6 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.spojranking.data.User
-import com.example.spojranking.data.getName
 import com.example.spojranking.screen.dialog.PopUpDialog
 
 
@@ -47,7 +46,7 @@ fun TopUserCard(top: Int, high: Int, user: User, color: Color) {
                 .clickable { showPopUp = true }
         )
         Text(
-            text = getName(user.name),
+            text = user.getShortName(),
             fontSize = 16.sp,
             fontWeight = FontWeight.Bold,
             color = Color.White,

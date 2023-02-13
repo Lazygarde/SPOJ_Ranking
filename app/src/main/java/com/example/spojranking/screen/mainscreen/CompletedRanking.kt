@@ -17,8 +17,7 @@ import com.example.spojranking.data.User
 import com.example.spojranking.data.getListOfUser
 
 @Composable
-fun CompletedRanking(onClick: (User) -> Unit) {
-    val list: List<User> = getListOfUser()
+fun CompletedRanking( list: List<User>,onClick: (User) -> Unit) {
     Column {
         Divider(
             modifier = Modifier

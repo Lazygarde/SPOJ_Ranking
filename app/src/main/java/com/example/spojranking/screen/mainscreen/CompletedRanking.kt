@@ -14,7 +14,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import com.example.spojranking.data.User
-import com.example.spojranking.data.getListOfUser
 
 @Composable
 fun CompletedRanking( list: List<User>,onClick: (User) -> Unit) {

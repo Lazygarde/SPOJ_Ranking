@@ -9,9 +9,9 @@ import kotlin.Int
 
 
 class GetWebData {
-    fun get(): List<User> {
+    fun get(): List<User> { //kiểu gì cũng phải load hết dữ liệu thì mới có danh sách theo top được
 
-        val solveds = mutableListOf<User>()
+        val list = mutableListOf<User>()
         val users = getListOfUser()
         val src = "https://www.spoj.com/PTIT/users/"
         for (i in 0 until users.size) {
@@ -39,7 +39,7 @@ class GetWebData {
                             }
                         }
                         users[i].setSolve(cnt)
-                        solveds.add(users[i])
+                        list.add(users[i])
                     }
                 }
 
@@ -47,9 +47,8 @@ class GetWebData {
                 continue
             }
         }
-
-        solveds.sortBy { -it.solved }
-        return solveds
+        list.sortBy { -it.solved }
+        return list
     }
 
 }

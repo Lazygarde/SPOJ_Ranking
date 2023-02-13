@@ -1,11 +1,11 @@
 package com.example.spojranking.data
 
 data class User(
-    val image: Int,
-    val name: String,
-    val userName: String,
+    var image: Int,
+    var name: String,
+    var userName: String,
     var solved: Int,
-    val target: Int
+    var target: Int
 ){
     fun getShortName() : String{
         var p = name.length - 1

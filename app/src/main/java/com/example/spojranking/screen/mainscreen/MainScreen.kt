@@ -1,13 +1,17 @@
 package com.example.spojranking.screen.mainscreen
 
 
+import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Button
 import androidx.compose.material.ButtonDefaults
@@ -29,7 +33,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
@@ -37,7 +40,6 @@ import com.example.spojranking.R
 import com.example.spojranking.data.User
 import com.example.spojranking.data.ViewModel
 import com.example.spojranking.screen.dialog.PopUpDialog
-import com.example.spojranking.ui.theme.SPOJRankingTheme
 import kotlinx.coroutines.launch
 
 
@@ -51,8 +53,9 @@ fun MainScreen() {
     val coroutineScope = rememberCoroutineScope()
     var showPopUp by remember { mutableStateOf(false) }
     val sheetShape = RoundedCornerShape(20.dp, 20.dp, 0.dp, 0.dp)
-    val viewModel : ViewModel = viewModel()
+    val viewModel: ViewModel = viewModel()
     val users = viewModel.uiState.collectAsState()
+    val loading = viewModel.loadingState.collectAsState()
     Box {
         ModalBottomSheetLayout(
             sheetShape = sheetShape,
@@ -70,18 +73,30 @@ fun MainScreen() {
                     .background(color = colorResource(id = R.color.background))
                     .fillMaxSize(), horizontalAlignment = Alignment.CenterHorizontally
             ) {
-                //CircularProgressIndicator(color = Color.White)
+                Row(modifier = Modifier.padding(top = 15.dp, end = 15.dp)) {
+                    Spacer(modifier = Modifier
+                        .weight(1f)
+                        .height(30.dp))
+                    if (loading.value) {
+                        CircularProgressIndicator(
+                            color = Color.White,
+                            modifier = Modifier.size(30.dp)
+                        )
+                    }
+                }
+                //
                 Column(
                     horizontalAlignment = Alignment.CenterHorizontally,
                     modifier = Modifier
                         .fillMaxWidth()
-                        .height(450.dp)
+                        .height(460.dp)
                 ) {
                     Text(
-                        modifier = Modifier.padding(top = 40.dp),
+                        modifier = Modifier.padding(top = 20.dp),
                         text = "SPOJ Ranking",
                         fontSize = 35.sp, fontWeight = FontWeight.Bold, color = Color.White
                     )
+
                     Top(users.value)
                 }
                 Button(

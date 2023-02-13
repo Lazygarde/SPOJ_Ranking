@@ -14,7 +14,6 @@ import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.unit.dp
 import com.example.spojranking.R
 import com.example.spojranking.data.User
-import com.example.spojranking.data.getListOfUser
 
 @Composable
 fun Top(list :List<User>){
@@ -31,7 +30,7 @@ fun Top(list :List<User>){
                     .weight(1f)
             ) {
                 TopUserCard(
-                    2, 120, list[1],
+                    2, 135, list[1],
                     colorResource(id = R.color.top2)
                 )
             }
@@ -42,7 +41,7 @@ fun Top(list :List<User>){
                     .weight(1f)
             ) {
                 TopUserCard(
-                    1, 150, list[0],
+                    1, 180, list[0],
                     colorResource(id = R.color.top1)
                 )
             }
@@ -53,7 +52,7 @@ fun Top(list :List<User>){
                     .weight(1f)
             ) {
                 TopUserCard(
-                    3, 80, list[2],
+                    3, 95, list[2],
                     colorResource(id = R.color.top3)
                 )
             }

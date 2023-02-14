@@ -33,12 +33,12 @@ import com.example.spojranking.screen.dialog.PopUpDialog
 
 
 @Composable
-fun TopUserCard(top: Int, high: Int, user: User, color: Color) {
+fun TopUserCard(top: Int, high: Int, user: User, color: Color, avt : Int) {
     var showPopUp by remember { mutableStateOf(false) }
     Column(horizontalAlignment = Alignment.CenterHorizontally) {
         Spacer(modifier = Modifier.weight(1f))
         Image(
-            painter = painterResource(id = user.image),
+            painter = painterResource(id = avt),
             contentDescription = null, contentScale = ContentScale.Crop,
             modifier = Modifier
                 .size(60.dp)
@@ -63,6 +63,7 @@ fun TopUserCard(top: Int, high: Int, user: User, color: Color) {
                 .width(80.dp)
                 .clip(RoundedCornerShape(10.dp, 10.dp, 0.dp, 0.dp))
                 .background(color)
+                .clickable { showPopUp = true }
         ) {
             Text(
                 text = top.toString(),
@@ -73,7 +74,7 @@ fun TopUserCard(top: Int, high: Int, user: User, color: Color) {
         }
     }
     if (showPopUp) {
-        PopUpDialog(user) {
+        PopUpDialog(user, avt) {
             showPopUp = false
         }
     }

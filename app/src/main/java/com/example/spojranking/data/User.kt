@@ -1,13 +1,12 @@
 package com.example.spojranking.data
 
 data class User(
-    var image: Int,
     var name: String,
     var userName: String,
     var solved: Int,
     var target: Int
-){
-    fun getShortName() : String{
+) {
+    fun getShortName(): String {
         var p = name.length - 1
         var s = 0
         while (p >= 0) {
@@ -21,7 +20,8 @@ data class User(
         }
         return name.substring(p + 1, name.length)
     }
-    fun setSolve(solved: Int){
+
+    fun setSolve(solved: Int) {
         this.solved = solved
     }
 }

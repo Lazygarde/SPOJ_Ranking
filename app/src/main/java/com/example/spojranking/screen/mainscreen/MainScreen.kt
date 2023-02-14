@@ -1,7 +1,6 @@
 package com.example.spojranking.screen.mainscreen
 
 
-import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -45,54 +44,57 @@ import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
-fun MainScreen() {
+fun MainScreen(modifier: Modifier = Modifier){
 
-    var user: User by remember { mutableStateOf(User(0, "", "", 0, 0)) }
-    val sheetState =
-        rememberModalBottomSheetState(initialValue = ModalBottomSheetValue.Hidden)
+    var user: User by remember { mutableStateOf(User( "", "", 0, 0)) }
+    var avt : Int by remember { mutableStateOf(R.drawable._7) }
+
+    val sheetState = rememberModalBottomSheetState(initialValue = ModalBottomSheetValue.Hidden)
     val coroutineScope = rememberCoroutineScope()
     var showPopUp by remember { mutableStateOf(false) }
-    val sheetShape = RoundedCornerShape(20.dp, 20.dp, 0.dp, 0.dp)
+
     val viewModel: ViewModel = viewModel()
     val users = viewModel.uiState.collectAsState()
     val loading = viewModel.loadingState.collectAsState()
+
     Box {
         ModalBottomSheetLayout(
-            sheetShape = sheetShape,
+            sheetShape =  RoundedCornerShape(20.dp, 20.dp, 0.dp, 0.dp),
             sheetState = sheetState,
             sheetContent = {
-                CompletedRanking(users.value) {
-                    user = it
+                CompletedRanking(users.value) { userIt, avtIt ->
+                    user = userIt
+                    avt = avtIt
                     showPopUp = true
                 }
             },
-            modifier = Modifier.fillMaxSize()
+            modifier = modifier.fillMaxSize()
         ) {
             Column(
-                modifier = Modifier
+                modifier = modifier
                     .background(color = colorResource(id = R.color.background))
                     .fillMaxSize(), horizontalAlignment = Alignment.CenterHorizontally
             ) {
-                Row(modifier = Modifier.padding(top = 15.dp, end = 15.dp)) {
-                    Spacer(modifier = Modifier
+                Row(modifier = modifier.padding(top = 15.dp, end = 15.dp)) {
+                    Spacer(modifier = modifier
                         .weight(1f)
                         .height(30.dp))
                     if (loading.value) {
                         CircularProgressIndicator(
                             color = Color.White,
-                            modifier = Modifier.size(30.dp)
+                            modifier = modifier.size(30.dp)
                         )
                     }
                 }
                 //
                 Column(
                     horizontalAlignment = Alignment.CenterHorizontally,
-                    modifier = Modifier
+                    modifier = modifier
                         .fillMaxWidth()
                         .height(460.dp)
                 ) {
                     Text(
-                        modifier = Modifier.padding(top = 20.dp),
+                        modifier = modifier.padding(top = 20.dp),
                         text = "SPOJ Ranking",
                         fontSize = 35.sp, fontWeight = FontWeight.Bold, color = Color.White
                     )
@@ -107,7 +109,7 @@ fun MainScreen() {
                         }
                     },
                     colors = ButtonDefaults.buttonColors(backgroundColor = Color.White),
-                    modifier = Modifier.padding(30.dp)
+                    modifier = modifier.padding(30.dp)
                 ) {
                     Text(text = "Completed Ranking", color = Color.Black)
                 }
@@ -116,7 +118,7 @@ fun MainScreen() {
 
     }
     if (showPopUp) {
-        PopUpDialog(user) {
+        PopUpDialog(user, avt) {
             showPopUp = false
         }
     }

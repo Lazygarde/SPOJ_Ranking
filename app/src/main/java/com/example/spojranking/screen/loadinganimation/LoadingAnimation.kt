@@ -27,6 +27,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import kotlinx.coroutines.launch
 import kotlin.math.abs
+import kotlin.math.min
 
 var maxProgressPerLevel: Int = 100
 const val progressLimit = 300f
@@ -42,20 +43,21 @@ fun ArcProgressbar(
     modifier: Modifier = Modifier,
     solved: Float, target: Int
 ) {
-
+    val maxSolvedValid = min(solved, target.toFloat())
     maxProgressPerLevel = target
-    var level by remember {
-        mutableStateOf(solved / maxProgressPerLevel)
+    val level by remember {
+        mutableStateOf(maxSolvedValid / maxProgressPerLevel)
     }
 
-    val targetAnimatedValue = calculate(solved, level.toInt())
+    val targetAnimatedValue = calculate(maxSolvedValid, level.toInt())
     val progressAnimate =
         remember { androidx.compose.animation.core.Animatable(targetAnimatedValue) }
     val scoreAnimate = remember { androidx.compose.animation.core.Animatable(0f) }
     val coroutineScope = rememberCoroutineScope()
+    var ok = false
 
-    LaunchedEffect(level, solved) {
-        if (solved > 0f) {
+    LaunchedEffect(level, maxSolvedValid) {
+        if (maxSolvedValid > 0f) {
 
             // animate progress
             coroutineScope.launch {
@@ -65,24 +67,17 @@ fun ArcProgressbar(
                         durationMillis = 1000
                     )
                 ) {
-                    if (value >= progressLimit) {
-
-                        coroutineScope.launch {
-                            level++
-                            progressAnimate.snapTo(0f)
-                        }
-                    }
                 }
             }
 
             coroutineScope.launch {
 
-                if (scoreAnimate.value > solved) {
+                if (scoreAnimate.value > maxSolvedValid) {
                     scoreAnimate.snapTo(0f)
                 }
 
                 scoreAnimate.animateTo(
-                    targetValue = solved,
+                    targetValue = maxSolvedValid,
                     animationSpec = tween(
                         durationMillis = 1000
                     )
@@ -127,7 +122,7 @@ fun CollectorLevel(
             )
         }
         Text(
-            text = "Process: ${(solved/target * 100).toInt()}%",
+            text = "Progress: ${(solved / target * 100).toInt()}%",
             color = Color.Black,
             fontSize = 18.sp
         )

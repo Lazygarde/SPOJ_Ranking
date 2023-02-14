@@ -14,19 +14,21 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import com.example.spojranking.data.User
+import com.example.spojranking.data.getListAvt
 
 @Composable
-fun CompletedRanking( list: List<User>,onClick: (User) -> Unit) {
+fun CompletedRanking(list: List<User>, onClick: (User, Int) -> Unit) {
+    val listAvt = getListAvt()
     Column {
         Divider(
             modifier = Modifier
                 .padding(start = 138.dp, end = 138.dp, bottom = 5.dp, top = 5.dp),
-            thickness = 2.dp,
+            thickness = 3.dp,
             color = Color.Black
         )
         LazyColumn {
             items(list.size) {
-                UserCard(it + 1, list[it], onClick)
+                UserCard(it + 1, list[it], listAvt[it], onClick)
                 Row(modifier = Modifier.fillMaxWidth()) {
                     Spacer(modifier = Modifier.width(58.dp))
                     Divider()

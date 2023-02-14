@@ -25,17 +25,15 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Dialog
 import com.example.spojranking.data.User
-import com.example.spojranking.data.getListOfUser
 import com.example.spojranking.screen.loadinganimation.ArcProgressbar
 
 
 @Composable
-fun PopUpDialog(user: User, onDismiss: () -> Unit) {
+fun PopUpDialog(user: User, avt: Int, onDismiss: () -> Unit) {
     Dialog(
         onDismissRequest = {
             onDismiss()
@@ -55,7 +53,7 @@ fun PopUpDialog(user: User, onDismiss: () -> Unit) {
                 modifier = Modifier.padding(top = 15.dp, start = 15.dp)
             ) {
                 Image(
-                    painter = painterResource(id = user.image),
+                    painter = painterResource(id = avt),
                     contentDescription = null,
                     contentScale = ContentScale.Crop,
                     modifier = Modifier
@@ -66,13 +64,13 @@ fun PopUpDialog(user: User, onDismiss: () -> Unit) {
                 Column {
                     Text(
                         text = user.name,
-                        fontSize = 20.sp,
+                        fontSize = 20.sp, color = Color.Black,
                         fontWeight = FontWeight.Bold,
                         modifier = Modifier.padding(start = 10.dp, end = 15.dp)
                     )
                     Text(
                         text = user.userName,
-                        fontSize = 16.sp,
+                        fontSize = 16.sp, color = Color.Black,
                         modifier = Modifier.padding(start = 10.dp, end = 15.dp)
                     )
                 }
@@ -90,7 +88,8 @@ fun PopUpDialog(user: User, onDismiss: () -> Unit) {
                     onClick = {
                         onDismiss()
                     },
-                    modifier = Modifier.padding(bottom = 20.dp), colors = ButtonDefaults.buttonColors(
+                    modifier = Modifier.padding(bottom = 20.dp),
+                    colors = ButtonDefaults.buttonColors(
                         containerColor = Color(0xFF1E88E5),
                         contentColor = Color.White
                     )
@@ -101,11 +100,4 @@ fun PopUpDialog(user: User, onDismiss: () -> Unit) {
         }
         score = user.solved
     }
-}
-
-
-@Preview(showBackground = true, showSystemUi = true)
-@Composable
-fun DefaultPreview() {
-    PopUpDialog(user = getListOfUser()[0], onDismiss = {})
 }

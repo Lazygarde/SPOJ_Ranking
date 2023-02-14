@@ -15,6 +15,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
@@ -22,8 +23,9 @@ import androidx.compose.ui.unit.sp
 import com.example.spojranking.data.User
 
 @Composable
-fun UserCard(top: Int, user : User, onClick: (User) -> Unit ) {
-    Column(modifier = Modifier.clickable { onClick(user)
+fun UserCard(top: Int, user: User, avt: Int, onClick: (User, Int) -> Unit) {
+    Column(modifier = Modifier.clickable {
+        onClick(user, avt)
     }) {
         Row(
             verticalAlignment = Alignment.CenterVertically
@@ -33,24 +35,24 @@ fun UserCard(top: Int, user : User, onClick: (User) -> Unit ) {
                 modifier = Modifier.size(56.dp)
             ) {
                 Text(
-                    text = top.toString(),
+                    text = top.toString(), color = Color.Black,
                     fontSize = 15.sp, modifier = Modifier.padding(start = 20.dp)
                 )
             }
             Box(modifier = Modifier.padding(top = 12.dp, bottom = 12.dp, end = 10.dp)) {
                 Image(
-                    painter = painterResource(id = user.image),
+                    painter = painterResource(id = avt),
                     contentDescription = null, contentScale = ContentScale.Crop,
                     modifier = Modifier
                         .size(40.dp)
                         .clip(CircleShape)
                 )
             }
-            Text(text = user.name, fontSize = 15.sp)
+            Text(text = user.name, color = Color.Black, fontSize = 15.sp)
             Spacer(Modifier.weight(1f))
             Text(
                 text = user.solved.toString(),
-                fontSize = 15.sp,
+                fontSize = 15.sp, color = Color.Black,
                 modifier = Modifier.padding(end = 24.dp)
             )
         }

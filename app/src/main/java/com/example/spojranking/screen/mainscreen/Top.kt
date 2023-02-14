@@ -31,7 +31,8 @@ fun Top(list :List<User>){
             ) {
                 TopUserCard(
                     2, 135, list[1],
-                    colorResource(id = R.color.top2)
+                    colorResource(id = R.color.top2),
+                    R.drawable._6
                 )
             }
             Column(
@@ -42,7 +43,8 @@ fun Top(list :List<User>){
             ) {
                 TopUserCard(
                     1, 180, list[0],
-                    colorResource(id = R.color.top1)
+                    colorResource(id = R.color.top1),
+                    R.drawable._7
                 )
             }
             Column(
@@ -53,7 +55,8 @@ fun Top(list :List<User>){
             ) {
                 TopUserCard(
                     3, 95, list[2],
-                    colorResource(id = R.color.top3)
+                    colorResource(id = R.color.top3),
+                    R.drawable._5
                 )
             }
 

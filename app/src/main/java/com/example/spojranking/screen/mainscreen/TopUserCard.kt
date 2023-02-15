@@ -33,7 +33,7 @@ import com.example.spojranking.screen.dialog.PopUpDialog
 
 
 @Composable
-fun TopUserCard(top: Int, high: Int, user: User, color: Color, avt : Int) {
+fun TopUserCard(top: Int, high: Int, user: User, color: Color, avt : Int, uiMode: Boolean) {
     var showPopUp by remember { mutableStateOf(false) }
     Column(horizontalAlignment = Alignment.CenterHorizontally) {
         Spacer(modifier = Modifier.weight(1f))
@@ -74,7 +74,7 @@ fun TopUserCard(top: Int, high: Int, user: User, color: Color, avt : Int) {
         }
     }
     if (showPopUp) {
-        PopUpDialog(user, avt) {
+        PopUpDialog(user, avt, uiMode =uiMode ) {
             showPopUp = false
         }
     }

@@ -16,7 +16,7 @@ import com.example.spojranking.R
 import com.example.spojranking.data.User
 
 @Composable
-fun Top(list :List<User>){
+fun Top(list :List<User>, uiMode : Boolean){
     Box(modifier = Modifier.fillMaxSize()) {
         Row(
             modifier = Modifier
@@ -32,7 +32,7 @@ fun Top(list :List<User>){
                 TopUserCard(
                     2, 135, list[1],
                     colorResource(id = R.color.top2),
-                    R.drawable._6
+                    R.drawable._6, uiMode
                 )
             }
             Column(
@@ -44,7 +44,7 @@ fun Top(list :List<User>){
                 TopUserCard(
                     1, 180, list[0],
                     colorResource(id = R.color.top1),
-                    R.drawable._7
+                    R.drawable._7, uiMode
                 )
             }
             Column(
@@ -56,7 +56,7 @@ fun Top(list :List<User>){
                 TopUserCard(
                     3, 95, list[2],
                     colorResource(id = R.color.top3),
-                    R.drawable._5
+                    R.drawable._5, uiMode
                 )
             }
 

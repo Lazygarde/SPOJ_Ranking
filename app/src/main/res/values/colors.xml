@@ -12,4 +12,7 @@
     <color name="top2">#97e4ee</color>
     <color name="top3">#b3d3ff</color>
     <color name="background">#1a8cfd</color>
+
+    <color name="backgroundDarkMode">#353a65</color>
+    <color name="buttonDarkMode">#3e9fff</color>
 </resources>

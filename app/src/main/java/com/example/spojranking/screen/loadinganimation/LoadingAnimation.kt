@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -24,6 +25,7 @@ import androidx.compose.ui.graphics.StrokeCap
 import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.spojranking.ui.theme.SPOJRankingTheme
 import kotlinx.coroutines.launch
 import kotlin.math.abs
 import kotlin.math.min
@@ -39,8 +41,8 @@ fun calculate(
 
 @Composable
 fun ArcProgressbar(
+    solved: Float, target: Int, uiMode: Boolean,
     modifier: Modifier = Modifier,
-    solved: Float, target: Int
 ) {
     val maxSolvedValid = min(solved, target.toFloat())
     maxProgressPerLevel = target
@@ -54,56 +56,59 @@ fun ArcProgressbar(
     val scoreAnimate = remember { androidx.compose.animation.core.Animatable(0f) }
     val coroutineScope = rememberCoroutineScope()
 
-    LaunchedEffect(level, maxSolvedValid) {
-        if (maxSolvedValid > 0f) {
+    SPOJRankingTheme (darkTheme = uiMode){
+        LaunchedEffect(level, maxSolvedValid) {
+            if (maxSolvedValid > 0f) {
 
-            // animate progress
-            coroutineScope.launch {
-                progressAnimate.animateTo(
-                    targetValue = targetAnimatedValue,
-                    animationSpec = tween(
-                        durationMillis = 1000
+                // animate progress
+                coroutineScope.launch {
+                    progressAnimate.animateTo(
+                        targetValue = targetAnimatedValue,
+                        animationSpec = tween(
+                            durationMillis = 1000
+                        )
+                    ) {
+                    }
+                }
+
+                coroutineScope.launch {
+
+                    if (scoreAnimate.value > maxSolvedValid) {
+                        scoreAnimate.snapTo(0f)
+                    }
+
+                    scoreAnimate.animateTo(
+                        targetValue = maxSolvedValid,
+                        animationSpec = tween(
+                            durationMillis = 1000
+                        )
                     )
-                ) {
                 }
             }
+        }
 
-            coroutineScope.launch {
-
-                if (scoreAnimate.value > maxSolvedValid) {
-                    scoreAnimate.snapTo(0f)
-                }
-
-                scoreAnimate.animateTo(
-                    targetValue = maxSolvedValid,
-                    animationSpec = tween(
-                        durationMillis = 1000
-                    )
+        Column(
+            modifier = modifier.fillMaxWidth(),
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+            Box {
+                PointsProgress(
+                    progress = {
+                        progressAnimate.value
+                    }
                 )
+                CollectorLevel(solved, target, MaterialTheme.colorScheme.secondary)
             }
+
         }
     }
 
-    Column(
-        modifier = modifier.fillMaxWidth(),
-        horizontalAlignment = Alignment.CenterHorizontally
-    ) {
-        Box {
-            PointsProgress(
-                progress = {
-                    progressAnimate.value
-                }
-            )
-            CollectorLevel(solved, target)
-        }
-
-    }
 }
 
 
 @Composable
 fun CollectorLevel(
-    solved: Float, target: Int
+    solved: Float, target: Int, color: Color
 ) {
     Column(
         modifier = Modifier.fillMaxWidth(),
@@ -115,13 +120,13 @@ fun CollectorLevel(
             Text(
                 modifier = Modifier.padding(top = 80.dp, bottom = 55.dp),
                 text = "${solved.toInt()}/${target}",
-                color = Color.Black,
+                color = color,
                 fontSize = 20.sp
             )
         }
         Text(
             text = "Progress: ${(solved / target * 100).toInt()}%",
-            color = Color.Black,
+            color = color,
             fontSize = 18.sp
         )
     }

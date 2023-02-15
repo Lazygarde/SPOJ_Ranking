@@ -143,7 +143,7 @@ fun MainScreen(modifier: Modifier = Modifier) {
                             modifier = modifier.padding(30.dp)
                         ) {
                             Text(
-                                text = "Completed Ranking",
+                                text = "More",
                                 color = MaterialTheme.colorScheme.secondary
                             )
                         }

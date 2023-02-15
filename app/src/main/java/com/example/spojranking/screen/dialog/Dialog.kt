@@ -72,7 +72,7 @@ fun PopUpDialog(user: User, avt: Int, uiMode: Boolean, onDismiss: () -> Unit) {
                             modifier = Modifier.padding(start = 10.dp, end = 15.dp)
                         )
                         Text(
-                            text = user.userName,
+                            text = "@${user.userName}",
                             fontSize = 16.sp, color = MaterialTheme.colorScheme.secondary,
                             modifier = Modifier.padding(start = 10.dp, end = 15.dp)
                         )

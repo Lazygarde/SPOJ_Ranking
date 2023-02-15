@@ -1,6 +1,7 @@
 package com.example.spojranking.screen.mainscreen
 
 
+import android.app.Application
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -30,6 +31,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -37,35 +39,44 @@ import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.spojranking.R
 import com.example.spojranking.data.User
-import com.example.spojranking.data.ViewModel
+import com.example.spojranking.data.ViModel
+import com.example.spojranking.data.ViewModelFactory
 import com.example.spojranking.screen.dialog.PopUpDialog
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 
 
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
-fun MainScreen(modifier: Modifier = Modifier){
+fun MainScreen( modifier: Modifier = Modifier) {
 
-    var user: User by remember { mutableStateOf(User( "", "", 0, 0)) }
-    var avt : Int by remember { mutableStateOf(R.drawable._7) }
+    var user: User by remember { mutableStateOf(User(100,"", "", 0, 0)) }
+    var avt: Int by remember { mutableStateOf(R.drawable._7) }
 
     val sheetState = rememberModalBottomSheetState(initialValue = ModalBottomSheetValue.Hidden)
     val coroutineScope = rememberCoroutineScope()
     var showPopUp by remember { mutableStateOf(false) }
 
-    val viewModel: ViewModel = viewModel()
-    val users = viewModel.uiState.collectAsState()
-    val loading = viewModel.loadingState.collectAsState()
+
+
+    val context = LocalContext.current
+    val viModel: ViModel = viewModel(
+        factory = ViewModelFactory(context.applicationContext as Application)
+    )
+    val users = viModel.users.collectAsState()
+    val loading = viModel.loadingState.collectAsState()
 
     Box {
         ModalBottomSheetLayout(
-            sheetShape =  RoundedCornerShape(20.dp, 20.dp, 0.dp, 0.dp),
+            sheetShape = RoundedCornerShape(20.dp, 20.dp, 0.dp, 0.dp),
             sheetState = sheetState,
             sheetContent = {
-                CompletedRanking(users.value) { userIt, avtIt ->
-                    user = userIt
-                    avt = avtIt
-                    showPopUp = true
+                if (users != null) {
+                    CompletedRanking(users.value) { userIt, avtIt ->
+                        user = userIt
+                        avt = avtIt
+                        showPopUp = true
+                    }
                 }
             },
             modifier = modifier.fillMaxSize()
@@ -76,9 +87,11 @@ fun MainScreen(modifier: Modifier = Modifier){
                     .fillMaxSize(), horizontalAlignment = Alignment.CenterHorizontally
             ) {
                 Row(modifier = modifier.padding(top = 15.dp, end = 15.dp)) {
-                    Spacer(modifier = modifier
-                        .weight(1f)
-                        .height(30.dp))
+                    Spacer(
+                        modifier = modifier
+                            .weight(1f)
+                            .height(30.dp)
+                    )
                     if (loading.value) {
                         CircularProgressIndicator(
                             color = Color.White,
@@ -99,7 +112,9 @@ fun MainScreen(modifier: Modifier = Modifier){
                         fontSize = 35.sp, fontWeight = FontWeight.Bold, color = Color.White
                     )
 
-                    Top(users.value)
+                    if (users != null) {
+                        Top(users.value)
+                    }
                 }
                 Button(
                     onClick = {

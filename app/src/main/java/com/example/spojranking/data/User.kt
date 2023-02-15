@@ -1,11 +1,20 @@
 package com.example.spojranking.data
 
+import androidx.room.ColumnInfo
+import androidx.room.Entity
+import androidx.room.PrimaryKey
+
+@Entity(tableName = "dataTable")
 data class User(
-    var name: String,
-    var userName: String,
-    var solved: Int,
-    var target: Int
+    @PrimaryKey
+    val id : Int,
+    @ColumnInfo(name = "name") var name: String,
+    @ColumnInfo(name = "userName") var userName: String,
+    @ColumnInfo(name = "solved") var solved: Int,
+    @ColumnInfo(name = "target") var target: Int
 ) {
+
+
     fun getShortName(): String {
         var p = name.length - 1
         var s = 0

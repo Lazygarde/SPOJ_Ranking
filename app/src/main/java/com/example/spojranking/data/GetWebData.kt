@@ -1,5 +1,6 @@
 package com.example.spojranking.data
 
+import androidx.lifecycle.LiveData
 import org.jsoup.Jsoup
 import org.jsoup.nodes.Element
 import org.jsoup.select.Elements
@@ -9,8 +10,7 @@ import kotlin.Int
 
 
 class GetWebData {
-    fun get(): List<User> { //kiểu gì cũng phải load hết dữ liệu thì mới có danh sách theo top được
-
+    fun get(): MutableList<User> {
         val list = mutableListOf<User>()
         val users = getListOfUser()
         val src = "https://www.spoj.com/PTIT/users/"

@@ -6,7 +6,7 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import com.example.spojranking.data.User
 
-@Database(entities = [(User::class)], version = 9, exportSchema = false)
+@Database(entities = [(User::class)], version = 12, exportSchema = false)
 abstract class DataRoom : RoomDatabase() {
     abstract fun getDao(): DAO
 
@@ -22,7 +22,7 @@ abstract class DataRoom : RoomDatabase() {
                     instance = Room.databaseBuilder(
                         context.applicationContext,
                         DataRoom::class.java,
-                        "todo_list_database"
+                        "database"
                     ).fallbackToDestructiveMigration()
                         .build()
 

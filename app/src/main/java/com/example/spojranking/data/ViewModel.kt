@@ -1,9 +1,7 @@
 package com.example.spojranking.data
 
 import android.app.Application
-import android.util.Log
 import androidx.lifecycle.AndroidViewModel
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
@@ -11,11 +9,9 @@ import com.example.spojranking.database.DataRepo
 import com.example.spojranking.database.DataRoom
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import javax.inject.Inject
 
 
 class ViModel(application: Application) : AndroidViewModel(application) {
@@ -33,12 +29,11 @@ class ViModel(application: Application) : AndroidViewModel(application) {
 
         viewModelScope.launch(Dispatchers.IO) {
             val listUsers = repository.getListData()
-            if(listUsers.isEmpty()){
-                for(i in getEmptyListUser()){
+            if (listUsers.isEmpty()) {
+                for (i in getEmptyListUser()) {
                     repository.insert(i)
                 }
             }
-            //Log.e("wwtf", "wwtf ${repository.getListData().size}")
             users.value = repository.getListData()
         }
         getAllTasks()
@@ -49,12 +44,13 @@ class ViModel(application: Application) : AndroidViewModel(application) {
         viewModelScope.launch(Dispatchers.IO) {
             val data = GetWebData()
             val list = data.get()
-            if(list.isNotEmpty()){
+            if (list.isNotEmpty()) {
+                for (i in 0 until 26) {
+                    repository.update(list[i])
+                }
                 withContext(Dispatchers.Main) {
-                    for (i in 0 until 26) {
-                        repository.update(list[i])
-                    }
                     _loadingState.value = false
+                    users.value = repository.getListData()
                 }
             }
         }

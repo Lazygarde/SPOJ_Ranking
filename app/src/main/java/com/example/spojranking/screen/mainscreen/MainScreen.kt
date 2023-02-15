@@ -42,21 +42,19 @@ import com.example.spojranking.data.User
 import com.example.spojranking.data.ViModel
 import com.example.spojranking.data.ViewModelFactory
 import com.example.spojranking.screen.dialog.PopUpDialog
-import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 
 
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
-fun MainScreen( modifier: Modifier = Modifier) {
+fun MainScreen(modifier: Modifier = Modifier) {
 
-    var user: User by remember { mutableStateOf(User(100,"", "", 0, 0)) }
+    var user: User by remember { mutableStateOf(User(100, "", "", 0, 0)) }
     var avt: Int by remember { mutableStateOf(R.drawable._7) }
 
     val sheetState = rememberModalBottomSheetState(initialValue = ModalBottomSheetValue.Hidden)
     val coroutineScope = rememberCoroutineScope()
     var showPopUp by remember { mutableStateOf(false) }
-
 
 
     val context = LocalContext.current
@@ -71,12 +69,10 @@ fun MainScreen( modifier: Modifier = Modifier) {
             sheetShape = RoundedCornerShape(20.dp, 20.dp, 0.dp, 0.dp),
             sheetState = sheetState,
             sheetContent = {
-                if (users != null) {
-                    CompletedRanking(users.value) { userIt, avtIt ->
-                        user = userIt
-                        avt = avtIt
-                        showPopUp = true
-                    }
+                CompletedRanking(users.value) { userIt, avtIt ->
+                    user = userIt
+                    avt = avtIt
+                    showPopUp = true
                 }
             },
             modifier = modifier.fillMaxSize()
@@ -112,9 +108,7 @@ fun MainScreen( modifier: Modifier = Modifier) {
                         fontSize = 35.sp, fontWeight = FontWeight.Bold, color = Color.White
                     )
 
-                    if (users != null) {
-                        Top(users.value)
-                    }
+                    Top(users.value)
                 }
                 Button(
                     onClick = {

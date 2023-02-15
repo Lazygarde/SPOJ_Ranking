@@ -7,7 +7,7 @@ import androidx.room.PrimaryKey
 @Entity(tableName = "dataTable")
 data class User(
     @PrimaryKey
-    val id : Int,
+    val id: Int,
     @ColumnInfo(name = "name") var name: String,
     @ColumnInfo(name = "userName") var userName: String,
     @ColumnInfo(name = "solved") var solved: Int,

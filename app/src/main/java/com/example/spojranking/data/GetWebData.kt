@@ -1,6 +1,5 @@
 package com.example.spojranking.data
 
-import androidx.lifecycle.LiveData
 import org.jsoup.Jsoup
 import org.jsoup.nodes.Element
 import org.jsoup.select.Elements

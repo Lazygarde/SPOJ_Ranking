@@ -16,7 +16,6 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Size
@@ -54,7 +53,6 @@ fun ArcProgressbar(
         remember { androidx.compose.animation.core.Animatable(targetAnimatedValue) }
     val scoreAnimate = remember { androidx.compose.animation.core.Animatable(0f) }
     val coroutineScope = rememberCoroutineScope()
-    var ok = false
 
     LaunchedEffect(level, maxSolvedValid) {
         if (maxSolvedValid > 0f) {

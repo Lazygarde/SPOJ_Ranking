@@ -1,4 +1,3 @@
 # SPOJ Ranking
 
-![Abstract Romantic Date Ideas Mobile Mockup Video Instagram Post  ](https://user-images.githubusercontent.com/84316258/218630600-2eb951d3-f10f-42a0-b025-2e1f1914be5f.png)
-
+![Green Gradient Application Showcase Presentation](https://user-images.githubusercontent.com/84316258/219530290-4c65469d-b138-4857-8202-5427fc3e5949.png)

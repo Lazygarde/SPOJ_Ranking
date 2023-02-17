@@ -6,6 +6,7 @@ import androidx.compose.material3.darkColorScheme
 import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
+import com.google.accompanist.systemuicontroller.rememberSystemUiController
 
 private val darkColorScheme = darkColorScheme(
     primary = Color.White, // text 1
@@ -14,6 +15,7 @@ private val darkColorScheme = darkColorScheme(
     background = Color(0xff10111a),
     surface = Color(0xff393b3d),
     onSurface = Color(0xff4e5052), //spacer
+    scrim = Color(0xff10111a)
     )
 
 private val lightColorScheme = lightColorScheme(
@@ -22,7 +24,8 @@ private val lightColorScheme = lightColorScheme(
     tertiary = Color.White, // button
     background = Color(0xff1a8cfd),
     surface = Color.White,
-    onSurface = Color.Black
+    onSurface = Color.Black,
+    scrim = Color.White
 
     /* Other default colors to override
     background = Color(0xFFFFFBFE),
@@ -45,5 +48,13 @@ fun SPOJRankingTheme(
     MaterialTheme(
         colorScheme = ourColorScheme,
         content = content
+    )
+    val systemUiController = rememberSystemUiController()
+
+    systemUiController.setSystemBarsColor(
+        ourColorScheme.background
+    )
+    systemUiController.setStatusBarColor(
+        ourColorScheme.background
     )
 }

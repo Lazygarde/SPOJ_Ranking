@@ -46,7 +46,8 @@ class ViModel(application: Application) : AndroidViewModel(application) {
             val list = data.get()
             if (list.isNotEmpty()) {
                 for (i in 0 until 26) {
-                    repository.update(list[i])
+                    if (list[i].solved != 0)
+                        repository.update(list[i])
                 }
                 withContext(Dispatchers.Main) {
                     _loadingState.value = false

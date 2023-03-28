@@ -30,5 +30,6 @@ fun getListAvt(): List<Int> {
     list.add(R.drawable._24)
     list.add(R.drawable._25)
     list.add(R.drawable._26)
+    list.add(R.drawable._27)
     return list
 }

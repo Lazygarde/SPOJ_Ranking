@@ -45,7 +45,7 @@ class ViModel(application: Application) : AndroidViewModel(application) {
             val data = GetWebData()
             val list = data.get()
             if (list.isNotEmpty()) {
-                for (i in 0 until 26) {
+                for (i in 0 until list.size) {
                     if (list[i].solved != 0)
                         repository.update(list[i])
                 }
@@ -59,7 +59,7 @@ class ViModel(application: Application) : AndroidViewModel(application) {
 
     private fun getEmptyListUser(): MutableList<User> {
         val list = getListOfUser()
-        for (i in 0 until 26) {
+        for (i in 0 until list.size) {
             list[i].userName = ""
             list[i].solved = 0
             list[i].target = 0

@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">SPOJ Ranking</string>
+    <string name="title_activity_splash_screeen">SplashScreeenActivity</string>
+    <string name="title_activity_splash_screen">SplashScreenActivity</string>
 </resources>

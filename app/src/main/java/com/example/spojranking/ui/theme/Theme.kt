@@ -15,7 +15,8 @@ private val darkColorScheme = darkColorScheme(
     background = Color(0xff10111a),
     surface = Color(0xff393b3d),
     onSurface = Color(0xff4e5052), //spacer
-    scrim = Color(0xff10111a)
+    scrim = Color(0xff10111a),
+    surfaceVariant = Color(0xff011734),
     )
 
 private val lightColorScheme = lightColorScheme(
@@ -25,7 +26,8 @@ private val lightColorScheme = lightColorScheme(
     background = Color(0xff1a8cfd),
     surface = Color.White,
     onSurface = Color.Black,
-    scrim = Color.White
+    scrim = Color.White,
+    surfaceVariant = Color(0xff011734)
 
     /* Other default colors to override
     background = Color(0xFFFFFBFE),
